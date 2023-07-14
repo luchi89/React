@@ -1,0 +1,54 @@
+import React, { useEffect, useState } from 'react'
+
+const ClockHook = (props) => {
+    
+    const state ={
+        fecha: new Date(),
+        edad: props.edad,
+    };
+
+    const [userState, setUserState] = useState(state);
+
+    useEffect(() => {        
+        const timerID = setInterval(() => {tick()}, 1000);
+        
+        return () => {
+            clearInterval(timerID)
+        };
+    });
+
+    const tick = () => {
+    return setUserState({
+        edad: userState.edad + 1,           
+        });
+    } 
+    return (
+        <div>
+        <h2>
+        Hora Actual: {state.fecha.toLocaleTimeString()}
+        </h2>
+        <h3>{props.nombre} {props.apellidos}</h3>
+        <h1>Edad: {userState.edad}</h1>
+        </div>
+    ); 
+}
+export default ClockHook;
+
+
+app.js----------
+import logo from './logo.svg';
+import './App.css';
+import Clock from './components/Clock';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <Clock></Clock>
+      </header>
+    </div>
+  );
+}
+
+export default App;
